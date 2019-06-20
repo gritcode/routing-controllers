@@ -1374,7 +1374,7 @@ class InversifyAdapter implements IocAdapter {
 
   get<T> (someClass: ClassConstructor<T>, action?: Action): T {
     const childContainer = this.container.createChild()
-    childContainer.bind(API_SYMBOLS.ClientIp).toConstantValuetion.context.ip)
+    childContainer.bind(API_SYMBOLS.ClientIp).toConstantValue(action.context.ip)
     return childContainer.resolve<T>(someClass)
   } 
 }
