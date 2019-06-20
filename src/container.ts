@@ -34,13 +34,13 @@ const defaultContainer: { get<T>(someClass: { new (...args: any[]): T }|Function
     }
 })();
 
+export type ClassConstructor<T> = { new (...args: any[]): T }
+
 let userContainer: { get<T>(
-    someClass: { new (...args: any[]): T }|Function,
+    someClass: ClassConstructor<T> | Function,
     action?: Action
 ): T };
 let userContainerOptions: UseContainerOptions;
-
-export type ClassConstructor<T> = { new (...args: any[]): T }
 
 /**
  * Allows routing controllers to resolve objects using your IoC container
