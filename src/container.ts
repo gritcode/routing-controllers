@@ -1,3 +1,4 @@
+import { Action } from "./Action";
 
 /**
  * Container options.
@@ -33,24 +34,44 @@ const defaultContainer: { get<T>(someClass: { new (...args: any[]): T }|Function
     }
 })();
 
-let userContainer: { get<T>(someClass: { new (...args: any[]): T }|Function): T };
+let userContainer: { get<T>(
+    someClass: { new (...args: any[]): T }|Function,
+    action?: Action
+): T };
 let userContainerOptions: UseContainerOptions;
+
+export type ClassConstructor<T> = { new (...args: any[]): T }
+
+/**
+ * Allows routing controllers to resolve objects using your IoC container
+ */
+export interface IocAdapter {
+    /**
+     * Return
+     */
+    get<T> (someClass: ClassConstructor<T>, action?: Action): T
+}
 
 /**
  * Sets container to be used by this library.
  */
-export function useContainer(iocContainer: { get(someClass: any): any }, options?: UseContainerOptions) {
-    userContainer = iocContainer;
+export function useContainer(iocAdapter: IocAdapter, options?: UseContainerOptions) {
+    userContainer = iocAdapter;
     userContainerOptions = options;
 }
 
 /**
  * Gets the IOC container used by this library.
+ * @param someClass A class constructor to resolve
+ * @param action The request/response context that `someClass` is being resolved for
  */
-export function getFromContainer<T>(someClass: { new (...args: any[]): T }|Function): T {
+export function getFromContainer<T>(
+    someClass: ClassConstructor<T> | Function,
+    action?: Action
+): T {
     if (userContainer) {
         try {
-            const instance = userContainer.get(someClass);
+            const instance = userContainer.get(someClass, action);
             if (instance)
                 return instance;
 

@@ -90,6 +90,8 @@
     "typescript": "~2.7.2"
   },
   "scripts": {
+    "package": "gulp package",
+    "lint": "gulp tslint",
     "test": "cross-env NODE_ENV=test gulp tests"
   },
   "typings": "index.d.ts"
