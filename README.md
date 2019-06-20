@@ -73,7 +73,7 @@ You can use routing-controllers with [express.js][1] or [koa.js][2].
 
 1. Install module:
 
-    `npm install routing-controllers --save`
+    `npm install routing-controllers class-validator --save`
 
 2. `reflect-metadata` shim is required:
 
