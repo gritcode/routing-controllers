@@ -93,8 +93,9 @@
     "typescript": "~2.7.2"
   },
   "scripts": {
-    "package": "gulp package",
     "lint": "gulp tslint",
+    "package": "gulp package",
+    "publish": "gulp publish",
     "test": "cross-env NODE_ENV=test gulp tests"
   },
   "typings": "index.d.ts"
